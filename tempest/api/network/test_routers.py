@@ -280,10 +280,10 @@ class RoutersTest(base.BaseRouterTest):
         self.addCleanup(
             self._delete_extra_routes,
             self.router['id'])
-        # Update router extra route, second ip of the range is
+        # Update router extra route, tenth ip of the range is
         # used as next hop
         cidr = netaddr.IPNetwork(self.subnet['cidr'])
-        next_hop = str(cidr[2])
+        next_hop = str(cidr[10])
         destination = str(self.subnet['cidr'])
         _, extra_route = self.client.update_extra_routes(self.router['id'],
                                                          next_hop, destination)
