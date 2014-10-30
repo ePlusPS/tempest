@@ -113,9 +113,11 @@ class PortsTestJSON(base.BaseNetworkTest):
         # List ports filtered by router_id
         _, port_list = self.client.list_ports(device_id=router['id'])
         ports = port_list['ports']
-        self.assertEqual(len(ports), 1)
-        self.assertEqual(ports[0]['id'], port['port']['id'])
-        self.assertEqual(ports[0]['device_id'], router['id'])
+        pid_list = []
+        for listport in ports:
+            pid_list.append(listport['id'])
+            self.assertEqual(listport['device_id'], router['id'])
+        self.assertIn(port['port']['id'], pid_list)
 
     @test.attr(type='smoke')
     def test_list_ports_fields(self):
